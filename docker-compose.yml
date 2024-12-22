@@ -1,0 +1,9 @@
+services:
+  certbot:
+    image: certbot-dns-timeweb
+    volumes:
+      - ./certbot/etc/letsencrypt:/etc/letsencrypt
+      - ./certbot/var/lib/letsencrypt:/var/lib/letsencrypt
+      - ./certbot/timeweb-creds.ini:/etc/letsencrypt/timeweb-creds.ini
+    entrypoint: certbot
+    command: certonly --authenticator dns-timeweb --dns-timeweb-credentials /etc/letsencrypt/timeweb-creds.ini --dns-timeweb-propagation-seconds=15 -d example.com  -d *.example.com
